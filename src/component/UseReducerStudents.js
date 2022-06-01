@@ -19,6 +19,17 @@ const reducer = (state, action) => {
         count: state.count - 1,
         students: state.students.filter((student) => student.id !== action.payload.id),
       };
+    case 'mark-student':
+      return {
+        count: state.count,
+        students: state.students.map((student) => {
+          if (student.id === action.payload.id) {
+            console.log(student.isHere);
+            return { ...student, isHere: !student.isHere };
+          }
+          return student;
+        }),
+      };
     default:
       return state;
   }
@@ -54,7 +65,7 @@ function UseReducerStudents() {
           추가
         </button>
         {studentsInfo.students.map((student) => {
-          return <UseReducerStudentsList key={student.id} name={student.name} dispatch={dispatch} id={student.id} />;
+          return <UseReducerStudentsList key={student.id} name={student.name} dispatch={dispatch} id={student.id} isHere={student.isHere} />;
         })}
       </div>
     </div>
