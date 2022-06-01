@@ -1,4 +1,4 @@
-function UseReducerStudentsList({ name, dispatch, id, isHere }) {
+function UseReducerStudentsList({ ACTION_TYPES, name, dispatch, id, isHere }) {
   return (
     <div className="useReducer_students-list">
       <span
@@ -7,7 +7,7 @@ function UseReducerStudentsList({ name, dispatch, id, isHere }) {
           color: isHere ? 'gray' : 'black',
         }}
         onClick={() => {
-          dispatch({ type: 'mark-student', payload: { id } });
+          dispatch({ type: ACTION_TYPES.mark, payload: { id } });
         }}
       >
         {name}
@@ -15,7 +15,7 @@ function UseReducerStudentsList({ name, dispatch, id, isHere }) {
       <button
         type="button"
         onClick={() => {
-          dispatch({ type: 'delete-students', payload: { id } });
+          dispatch({ type: ACTION_TYPES.delete, payload: { id } });
         }}
       >
         삭제

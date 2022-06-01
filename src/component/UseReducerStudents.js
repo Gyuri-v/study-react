@@ -1,9 +1,15 @@
 import { useReducer, useState } from 'react';
 import UseReducerStudentsList from './UseReducerStudentsList';
 
+const ACTION_TYPES = {
+  add: 'add',
+  delete: 'delete',
+  mark: 'mark',
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'add-students':
+    case ACTION_TYPES.add:
       const name = action.payload.name;
       const newStudent = {
         id: Date.now(),
@@ -14,12 +20,12 @@ const reducer = (state, action) => {
         count: state.count + 1,
         students: [...state.students, newStudent],
       };
-    case 'delete-students':
+    case ACTION_TYPES.delete:
       return {
         count: state.count - 1,
         students: state.students.filter((student) => student.id !== action.payload.id),
       };
-    case 'mark-student':
+    case ACTION_TYPES.mark:
       return {
         count: state.count,
         students: state.students.map((student) => {
@@ -59,13 +65,13 @@ function UseReducerStudents() {
         <button
           type="button"
           onClick={() => {
-            dispatch({ type: 'add-students', payload: { name } });
+            dispatch({ type: ACTION_TYPES.add, payload: { name } });
           }}
         >
           추가
         </button>
         {studentsInfo.students.map((student) => {
-          return <UseReducerStudentsList key={student.id} name={student.name} dispatch={dispatch} id={student.id} isHere={student.isHere} />;
+          return <UseReducerStudentsList key={student.id} name={student.name} dispatch={dispatch} id={student.id} isHere={student.isHere} ACTION_TYPES={ACTION_TYPES} />;
         })}
       </div>
     </div>
